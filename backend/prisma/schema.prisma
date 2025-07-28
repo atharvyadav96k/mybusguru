@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String?
+  role      String?  @default("user")
+  routeId   Int?
+  route     Route?   @relation(fields: [routeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Route {
+  id         Int      @id @default(autoincrement())
+  name       String
+  startPoint String
+  latitude   Float
+  longitude  Float
+  endPoint   String
+  users      User[]
+  stops      Stop[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Stop {
+  id        Int    @id @default(autoincrement())
+  latitude  Float
+  longitude Float
+  routeId   Int
+  route     Route  @relation(fields: [routeId], references: [id], onDelete: Cascade)
+}
