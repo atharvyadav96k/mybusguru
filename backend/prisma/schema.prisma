@@ -39,3 +39,4 @@ model Stop {
   routeId   Int
   route     Route  @relation(fields: [routeId], references: [id], onDelete: Cascade)
 }
+
