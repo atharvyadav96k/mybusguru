@@ -20,4 +20,14 @@ async function getUserByEmail(email) {
     return user;
 }
 
-module.exports = { createUser, getUserByEmail };
+async function updateUserRoute(email, routeId){
+    const user = await prisma.user.update({
+        where: {email: email},
+        data: {
+            routeId: routeId
+        }
+    });
+    return user;
+}
+
+module.exports = { createUser, getUserByEmail, updateUserRoute};
