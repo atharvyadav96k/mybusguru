@@ -22,4 +22,5 @@ route.post('/assign-route', async (req, res) => {
     }
 });
 
+
 module.exports = route;
