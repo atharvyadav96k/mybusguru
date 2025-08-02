@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organization Registration</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .form-container {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .form-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .form-header h1 {
+        color: #333;
+        font-size: 2.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .form-header p {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .required {
+        color: #e74c3c;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="password"],
+      textarea {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e1e8ed;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #fff;
+      }
+
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="password"]:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        transform: translateY(-2px);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      .submit-btn:active {
+        transform: translateY(-1px);
+      }
+
+      .form-info {
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+      }
+
+      .form-info p {
+        color: #555;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 480px) {
+        .form-container {
+          padding: 25px;
+        }
+
+        .form-header h1 {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <form action="/api/org/register" method="POST" id="registrationForm">
+        <div class="form-group">
+          <label for="name"
+            >Organization Name <span class="required">*</span></label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Enter organization name"
+            maxlength="100"
+            oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '')"
+            title="Only letters and spaces are allowed"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="code">College Code <span class="required">*</span></label>
+          <input
+            type="text"
+            id="code"
+            name="code"
+            required
+            placeholder="Enter unique college code"
+            maxlength="20"
+            pattern="[A-Za-z0-9]+"
+            title="College code should contain only letters and numbers"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone"
+            >Phone Number <span class="required">*</span></label
+          >
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Enter 10-digit phone number"
+            required
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);"
+            maxlength="10"
+            title="Please enter exactly 10 digits"
+            pattern="\d{10}"
+            <div
+            class="form-group"
+          />
+          <label for="address">Address <span class="required">*</span></label>
+          <textarea
+            id="address"
+            name="address"
+            required
+            placeholder="Enter complete address"
+            maxlength="500"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password <span class="required">*</span></label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            placeholder="Create a secure password"
+            minlength="8"
+            title="Password must be at least 8 characters long"
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">Register Organization</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("registrationForm")
+        .addEventListener("submit", function (e) {
+          const code = document.getElementById("code").value;
+          const phone = document.getElementById("phone").value;
+          const password = document.getElementById("password").value;
+
+          // Validate college code format
+          if (!/^[A-Za-z0-9]+$/.test(code)) {
+            e.preventDefault();
+            alert("College code should contain only letters and numbers.");
+            return;
+          }
+
+          // Validate phone number
+          if (!/^[0-9+\-\s]+$/.test(phone)) {
+            e.preventDefault();
+            alert("Please enter a valid phone number.");
+            return;
+          }
+
+          // Validate password length
+          if (password.length < 8) {
+            e.preventDefault();
+            alert("Password must be at least 8 characters long.");
+            return;
+          }
+
+          // Show loading state
+          const submitBtn = document.querySelector(".submit-btn");
+          submitBtn.innerHTML = "Registering...";
+          submitBtn.disabled = true;
+        });
+
+      // Auto-format college code to uppercase
+      document.getElementById("code").addEventListener("input", function (e) {
+        e.target.value = e.target.value.toUpperCase();
+      });
+    </script>
+  </body>
+</html>
