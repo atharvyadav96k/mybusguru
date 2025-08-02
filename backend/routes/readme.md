@@ -3,7 +3,7 @@
 ## Org Routes
 
 ### Auth Routes
-**Register Routes**
+**Register Org**
 ```
 /api/org/register
 ```
@@ -11,10 +11,19 @@
 | :-------- | :------- | :-------------------------------------------------------------------------- |
 | `name`    | `string` | **Required**.                                                               |
 | `code`    | `string` | **Required**. Unique Collage code to assign bus identity card number to user|
+| `email`    | `string` | **Required**.                                                              |
 | `phone`   | `string` | **Required**.                                                               |
 | `address` | `string` | **Required**.                                                               |
 | `password`| `string` | **Required**.                                                               |
 
+**Login Org**
+```
+/api/org/login
+```
+| Parameter | Type     | Description   |
+| :-------- | :------- | :-------------|
+| `code`    | `string` | **Required**. |
+| `password`| `string` | **Required**. |
 
 ### Admin Routes
 

@@ -1,10 +1,11 @@
 const prisma = require('../../database/prismaClient');
 
-async function createOrg(name, code, phone, address, password) {
+async function createOrg(name, code, email,phone, address, password) {
     const org = await prisma.org.create({
         data: {
             name,
             code,
+            email,
             phone,
             address,
             password
